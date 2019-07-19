@@ -18,12 +18,11 @@ func check(e error) {
 }
 func main() {
 
-	new_addon := map[string]interface{}{}
-	flavour := map[string]interface{}{}
+	var new_addon interface{}
+	var flavour interface{}
 
 	reader := bufio.NewReader(os.Stdin)
 	var addon_yml []byte
-	//var flavour_yml []byte
 
 	//read from stdin
 	for {
@@ -64,13 +63,25 @@ func main() {
 		    	manager: asd
 
 	*/
+	new_addon_interface := new_addon.(map[interface{}]interface{})
+	addon_meta := new_addon_interface["meta"]
+	addon_meta_interface := addon_meta.(map[interface{}]interface{})
+	addon_name := addon_meta_interface["name"]
+
+	new_thing := make(map[string]interface{})
+	new_thing["manager"] = os.Getenv("FAM_IDENTIFIER")
+
+	m := flavour.(map[interface{}]interface{})
+	// TODO
+	n := m["addons"].(map[interface{}]interface{})
+	n[addon_name] = new_thing
 	// -------------------------------------------------------------
 	// -------------------------------------------------------------
 	// -------------------------------------------------------------
 
 	s, err := yaml.Marshal(&flavour)
-	fmt.Println(string(s))
-	//fmt.Println("PATH:", os.Getenv("PATH"))
+	errs := ioutil.WriteFile("flavour_new.yml", s, 0644)
+	check(errs)
 
 	//TODO: write string s changes back to flavour.yml
 
