@@ -11,17 +11,6 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-// cat ../flavour/libflavour/libflavour/test/data/example_addon_data_1.yaml | go run add.go
-
-// Note: struct fields must be public in order for unmarshal to
-// correctly populate the data.
-type T struct {
-	META struct {
-		NAME    string
-		VERSION string
-	}
-}
-
 func check(e error) {
 	if e != nil {
 		panic(e)
@@ -63,7 +52,7 @@ func main() {
 	// -------------------------------------------------------------
 	// -------------------------------------------------------------
 
-	flavour["addons"]["asd"] = "asd"
+	//flavour["addons"]["asd"] = "asd"
 
 	// -------------------------------------------------------------
 	// -------------------------------------------------------------
