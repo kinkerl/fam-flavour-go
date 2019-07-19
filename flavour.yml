@@ -1,0 +1,25 @@
+meta:
+  name: my-django-project
+  version: 0.1
+version: 0.1
+
+services:
+  database1:
+    type: postgres
+
+addons:
+  divio/django-flavour:
+    manager: fam-python
+  divio/django-cloud-essentials:
+    manager: fam-python
+    settings:
+      packagename: django_cloud_essentials
+  addons/aldryn-redirects:
+    manager: flavour/fam-diviocloud-addon
+config:
+  languages:
+    label: Languages
+    required: True
+    type: scalar/string
+    default: en,de
+    helptext: 'WARNING: this field is auto-written. Please do not change it here.'
