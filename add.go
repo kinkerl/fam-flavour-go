@@ -37,7 +37,7 @@ func main() {
 	// read input go file for addon
 	err := yaml.Unmarshal([]byte(addon_yml), &new_addon)
 	check(err)
-	fmt.Printf("--- t:\n%v\n\n", new_addon)
+	fmt.Printf("--- new addon ---:\n%v\n\n", new_addon)
 
 	// read flavour file
 	flavour_yml, err := ioutil.ReadFile("flavour.yml")
@@ -46,21 +46,32 @@ func main() {
 	if err2 != nil {
 		log.Fatalf("error: %v", err)
 	}
-	fmt.Printf("--- t:\n%v\n\n", flavour)
+	fmt.Printf("--- flavour ---:\n%v\n\n", flavour)
 
 	// -------------------------------------------------------------
 	// -------------------------------------------------------------
 	// -------------------------------------------------------------
 
-	//flavour["addons"]["asd"] = "asd"
+	// hier würde ich gerne folgendes machen, pseudocode:
+	/*
+			flavour["addons"][new_addon["meta"]["name"]] = {
+				"manager": "asd"
+			}
 
+			ich will also so einen block hinzufügen zu "addon"
+
+			django-divio:
+		    	manager: asd
+
+	*/
 	// -------------------------------------------------------------
 	// -------------------------------------------------------------
 	// -------------------------------------------------------------
 
 	s, err := yaml.Marshal(&flavour)
 	fmt.Println(string(s))
-	fmt.Println("PATH:", os.Getenv("PATH"))
-	//write changes to flavour.yml
+	//fmt.Println("PATH:", os.Getenv("PATH"))
+
+	//TODO: write string s changes back to flavour.yml
 
 }

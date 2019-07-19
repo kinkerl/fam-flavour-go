@@ -1,4 +1,8 @@
 # fam-flavour-go
 
 
-// cat example_addon_data_1.yaml | go run add.go
+// cat example.yml | go run add.go
+
+
+* flavour.yml soll infos bekommen aus example.yml
+
