@@ -51,18 +51,6 @@ func main() {
 	// -------------------------------------------------------------
 	// -------------------------------------------------------------
 
-	// hier würde ich gerne folgendes machen, pseudocode:
-	/*
-			flavour["addons"][new_addon["meta"]["name"]] = {
-				"manager": "asd"
-			}
-
-			ich will also so einen block hinzufügen zu "addon"
-
-			django-divio:
-		    	manager: asd
-
-	*/
 	new_addon_interface := new_addon.(map[interface{}]interface{})
 	addon_meta := new_addon_interface["meta"]
 	addon_meta_interface := addon_meta.(map[interface{}]interface{})
