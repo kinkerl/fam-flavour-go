@@ -29,6 +29,10 @@ type flavourproject struct {
 	Addons yaml.MapSlice `yaml:"addons"`
 }
 
+type (
+	Addons yaml.MapSlice
+)
+
 func main() {
 
 	reader := bufio.NewReader(os.Stdin)
@@ -51,7 +55,7 @@ func main() {
 
 	// read flavour file
 	//flavour_addons := flavourproject{}
-	var flavour interface{}
+	var flavour map[string]interface{}
 	flavour_yml, err := ioutil.ReadFile("flavour.yml")
 	check(err)
 	err2 := yaml.Unmarshal([]byte(flavour_yml), &flavour)
@@ -63,13 +67,10 @@ func main() {
 	new_thing := make(map[string]interface{})
 	new_thing["manager"] = os.Getenv("FAM_IDENTIFIER")
 
-	test := flavour.(flavourproject)
+	flavour["addons"] = flavour["addons"].(yaml.MapSlice)
+	flavour["addons"] = append(flavour["addons"], yaml.MapItem{new_addon.Meta.Name, new_thing})
 
-	test.Addons = append(test.Addons, yaml.MapItem{new_addon.Meta.Name, new_thing})
-
-	flavour_what := test.(interface{})
-
-	s, err := yaml.Marshal(&flavour_what)
+	s, err := yaml.Marshal(&flavour)
 	errs := ioutil.WriteFile("flavour_new.yml", s, 0644)
 	check(errs)
 
