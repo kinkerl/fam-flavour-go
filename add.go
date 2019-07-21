@@ -50,7 +50,8 @@ func main() {
 	fmt.Printf("--- new addon ---:\n%v\n\n", new_addon)
 
 	// read flavour file
-	flavour := flavourproject{}
+	//flavour_addons := flavourproject{}
+	var flavour interface{}
 	flavour_yml, err := ioutil.ReadFile("flavour.yml")
 	check(err)
 	err2 := yaml.Unmarshal([]byte(flavour_yml), &flavour)
@@ -62,9 +63,13 @@ func main() {
 	new_thing := make(map[string]interface{})
 	new_thing["manager"] = os.Getenv("FAM_IDENTIFIER")
 
-	flavour.Addons = append(flavour.Addons, yaml.MapItem{new_addon.Meta.Name, new_thing})
+	test := flavour.(flavourproject)
 
-	s, err := yaml.Marshal(&flavour)
+	test.Addons = append(test.Addons, yaml.MapItem{new_addon.Meta.Name, new_thing})
+
+	flavour_what := test.(interface{})
+
+	s, err := yaml.Marshal(&flavour_what)
 	errs := ioutil.WriteFile("flavour_new.yml", s, 0644)
 	check(errs)
 
